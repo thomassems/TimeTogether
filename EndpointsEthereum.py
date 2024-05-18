@@ -7,7 +7,6 @@ app = Flask(__name__)
 infura_url = "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"
 web3 = Web3(Web3.HTTPProvider(infura_url))
 
-# Check connection
 if web3.is_connected():
     print("Connected to Ethereum")
 else:
