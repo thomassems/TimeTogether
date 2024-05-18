@@ -56,6 +56,10 @@ try:
         def update_priority(uID, friend, priority): # check that they are friends before-hand
                 try:
                         cur.execute("""UPDATE "User" SET "priority" = %s WHERE "uID" = %s AND "friend" = %s""", (priority, uID, friend))
+                
+                except Exception as e:
+                        print(e)
+                        print("Failed to update priority")
 
         current_timestamp = datetime.now()
 
@@ -171,7 +175,7 @@ try:
                         print(e)
                         print("Failed to retrieve friends")
         
-        print(get_user_friends(3))
+        # print(get_user_friends(3))
 
         def get_user_invites(friendID):
                 try:
@@ -214,15 +218,26 @@ try:
                         print(e)
                         print("Failed to update last talked to")
         
-        update_last_talked_to(3, 2)
-        cur.execute("SELECT * FROM \"User\"")
-        result = cur.fetchall()
-        print("hello")
-        print(result)
+        # update_last_talked_to(3, 2)
+        # cur.execute("SELECT * FROM \"User\"")
+        # result = cur.fetchall()
+        # print(result)
 
-        # Example usage:
+        def clear_all():
+                cur.execute("""DELETE FROM "event_participants" """)
+                cur.execute("""DELETE FROM "User" """)
+                cur.execute("""DELETE FROM "events" """)
+                cur.execute("""DELETE FROM "invige" """)
+
+        # DON'T UNCOMMENT
+        # clear_all()
+
+        # result = cur.fetchall()
+        # print(result)
+
         cur.close()
         conn.close()
+
 except Exception as e:
         print(e)
         print('Unable to connect to the database')
