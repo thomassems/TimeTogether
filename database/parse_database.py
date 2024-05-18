@@ -47,7 +47,7 @@
 import uuid
 from flask import Flask, jsonify, request
 import json
-from database_methods import accept_invite, accept_req, add_user, friend_req, get_user_info, get_user_friend_invites, get_user_event_invites, invite_to_event, update_priority
+from database_methods import accept_invite, accept_req, add_user, friend_req, get_user_events, get_user_info, get_user_friend_invites, get_user_event_invites, invite_to_event, update_priority
 
 app = Flask(__name__)
 
@@ -190,6 +190,18 @@ def accept_invite_to_event():
     # Call the helper function to accept the invitation
     response, status = accept_invite(eID, friendID)
     return jsonify(response), status
+
+@app.route('/get_user_events', methods=['GET'])
+def get_user_events_db():
+    uID = request.args.get('uID')
+    if not uID:
+        return jsonify({"error": "uID is required"}), 400
+
+    # Call the helper function to retrieve user events
+    events = get_user_events(uID)
+    return jsonify(events), 200
+
+
 
 # Handle favicon request
 @app.route('/favicon.ico')
