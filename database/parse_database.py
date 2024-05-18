@@ -1,49 +1,3 @@
-# from flask import Flask, jsonify
-# import json
-# from database_methods import get_user_info, get_user_friend_invites
-# # from user import User
-
-# # def get_user(uID):
-# #     lst = get_user_info(uID)
-# #     lst.append(get_user_friend_invites(uID))
-
-
-# # Define a Python list
-
-# my_list = [1, 2, 3, "four", {"five": 5}, [6, 7]]
-# json_string = jsonify(my_list)
-# print(type(json_string))
-# print(json_string)
-
-# # print(get_user(5))
-
-# from flask import Flask, jsonify
-# import json
-# from database_methods import get_user_info, get_user_friend_invites
-
-# app = Flask(__name__)
-
-# # Example route to use jsonify
-# @app.route('/json')
-# def get_json():
-#     # Define a Python list
-#     my_list = [1, 2, 3, "four", {"five": 5}, [6, 7]]
-#     return jsonify(my_list)
-
-# # Example function to get user info and friend invites
-# @app.route('/user/<int:uID>')
-# def get_user(uID):
-#     user_info = get_user_info(uID)
-#     user_friend_invites = get_user_friend_invites(uID)
-#     response_data = {
-#         'user_info': user_info,
-#         'friend_invites': user_friend_invites
-#     }
-#     return jsonify(response_data)
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
 import uuid
 from flask import Flask, jsonify, request
 import json
@@ -133,7 +87,6 @@ def accept_friend_request():
     if not uID or not username or not friend:
         return jsonify({"error": "uID, username, and friend are required"}), 400
 
-    # Call the helper function to accept the friend request
     response, status = accept_req(uID, username, friend)
     return jsonify(response), status
 
@@ -150,7 +103,6 @@ def update_friend_priority():
     if not uID or not friend or priority is None:
         return jsonify({"error": "uID, friend, and priority are required"}), 400
 
-    # Call the helper function to update priority
     response, status = update_priority(uID, friend, priority)
     return jsonify(response), status
 
@@ -171,7 +123,6 @@ def invite_to_event_db():
     if not eID or not uID or not friendID or not eventName or not eventTime or not eventLocation or not eventDescription:
         return jsonify({"error": "Incomplete event details"}), 400
 
-    # Call the helper function to invite friends to the event
     response, status = invite_to_event(eID, uID, friendID, eventName, eventTime, eventLocation, eventDescription)
     return jsonify(response), status
 
@@ -187,7 +138,6 @@ def accept_invite_to_event():
     if not eID or not friendID:
         return jsonify({"error": "eID and friendID are required"}), 400
 
-    # Call the helper function to accept the invitation
     response, status = accept_invite(eID, friendID)
     return jsonify(response), status
 
@@ -197,7 +147,6 @@ def get_user_events_db():
     if not uID:
         return jsonify({"error": "uID is required"}), 400
 
-    # Call the helper function to retrieve user events
     events = get_user_events(uID)
     return jsonify(events), 200
 
