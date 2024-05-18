@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+
 class User:
     id
     name
@@ -46,8 +47,29 @@ class User:
 
     def read_calendar_ics(self):
         # need to implement
-        pass
-    
+        events = parse_ics()
+        for event in events:
+            dt_start = datetime.striptime(event['dtstart'], '%Y%m%dT%H%M%SZ')
+            dt_end = datetime.striptime(event['dtend'], '%Y%m%dT%H%M%SZ')
+            day = dt_start.weekday().strftime('%A')
+            self.calendar[day].append((dt_start.hour, dt_end.hour))
+        # now determine overlaps and combine
+        for day in self.calendar:
+            sorted_list = sorted(self.calendar[day], key=lambda x: x[0])
+            n = len(sorted_list)
+            if n == 0 or n == 1:
+                continue
+            i = 0
+            j = 1
+            while j < n:
+                if sorted_list[j][0] < sorted_list[i][1]:
+                    sorted_list[i] = (sorted_list[i][0], max(sorted_list[i][1], sorted_list[j][1]))
+                    sorted_list.pop(j)
+                    n -= 1
+                i += 1
+                j += 1
+            self.calendar[day] = sorted_list
+
     def accept_event_request(self, event):
         self.event_requests.remove(event)
         event.participant_accept(self)
