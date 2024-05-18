@@ -1,3 +1,4 @@
+import datetime
 class User:
     id
     name
@@ -67,6 +68,29 @@ class User:
         self.event_requests.remove(event)
         # need to add a way to show the message this to Event
         event.participant_reject(self)
+    
+    def _get_top_friend(self):
+        last_talked_to = None
+        top_friend = None
+        for friend in self.friends:
+            if friend.last_talked_to is None:
+                return friend
+            if last_talked_to is None:
+                last_talked_to = top_friend.last_talked_to
+            if friend.last_talked_to < last_talked_to:
+                last_talked_to = friend.last_talked_to
+                top_friend = friend
+        return top_friend
+
+    def get_top_three(self):
+        top_three = []
+        for i in range(3):
+            top_friend = self._get_top_friend()
+            top_three.append(top_friend)
+            self.friends.remove(top_friend)
+        self.friends = top_three + self.friends
+        return top_three
+
     
 
     
