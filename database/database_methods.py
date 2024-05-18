@@ -93,9 +93,11 @@ try:
                                     "eventDescription" = %s WHERE "eID" = %s""", (eventName, eventTime, eventLocation, eventDescription, eID))
                         conn.commit()
                         print("Event updated successfully")
+                        return {"message": "Event updated successfully"}, 201
                 except Exception as e:
                         print(e)
-                        print("Failed to update event")
+                        print("Failed to send invitation")
+                        return {"error": str(e)}, 400
 
         # update_event(1, "Nick's soccer tourny", current_timestamp, "Etobicoke", "Watch Nick get hat trick")
         # cur.execute("SELECT * FROM \"events\"")
@@ -126,11 +128,12 @@ try:
                         
                         add_participant_to_event(eID, oID)
                         add_participant_to_event(eID, friendID)
-                        print("accepted")
-                        
+                        print("Invitation accepted successfully")
+                        return {"message": "Invitation accepted successfully"}, 201
                 except Exception as e:
                         print(e)
-                        print("Failed to accept invite")
+                        print("Failed to accept invitation")
+                        return {"error": str(e)}, 400
 
         # accept_invite(2, 2)
         # cur.execute("SELECT * FROM \"invites\"")
