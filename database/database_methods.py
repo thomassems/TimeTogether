@@ -22,9 +22,11 @@ try:
                         cur.execute("""INSERT INTO "User" ("uID", "username", "friend", "lastTalkedTo", "priority", "password") VALUES (%s, %s, NULL, NULL, 0, %s)""", (uID, username, password))
                         conn.commit()
                         print("User added successfully")
+                        return {"message": "Friend added successfully"}, 201
                 except Exception as e:
                         print(e)
                         print("Failed to add user")
+                        return {"error": str(e)}, 400
 
         # cur.execute("SELECT * FROM \"User\"")
         # result = cur.fetchall()
@@ -34,9 +36,11 @@ try:
                         cur.execute("""INSERT INTO "User" ("uID", "username", "friend", "lastTalkedTo", "priority") VALUES (%s, %s, %s, NULL, %s)""", (uID, username, friend, priority))
                         conn.commit()
                         print("Friend added successfully")
+                        return {"message": "Friend added successfully"}, 201
                 except Exception as e:
                         print(e)
                         print("Failed to add friend")
+                        return {"error": str(e)}, 400
 
         # friend_req(3, "Mike", 2, 3)
         # cur.execute("SELECT * FROM \"User\"")
@@ -47,17 +51,21 @@ try:
                         cur.execute("""INSERT INTO "User" ("uID", "username", "friend", "lastTalkedTo", "priority") VALUES (%s, %s, %s, NULL, 3)""", (uID, username, friend))
                         conn.commit()
                         print("Friend added successfully")
+                        return {"message": "Friend added successfully"}, 201
                 except Exception as e:
                         print(e)
                         print("Failed to add friend")
+                        return {"error": str(e)}, 400
 
         def update_priority(uID, friend, priority): # check that they are friends before-hand
                 try:
                         cur.execute("""UPDATE "User" SET "priority" = %s WHERE "uID" = %s AND "friend" = %s""", (priority, uID, friend))
-                
+                        print("Priority updated successfully")
+                        return {"message": "Priority updated successfully"}, 200
                 except Exception as e:
                         print(e)
                         print("Failed to update priority")
+                        return {"error": str(e)}, 400
 
         current_timestamp = datetime.now()
 
@@ -68,10 +76,11 @@ try:
                         cur.execute("""INSERT INTO "invites" ("eID", "uID", "friendID") VALUES (%s, %s, %s)""", (eID, uID, friendID))
                         conn.commit()
                         print("Invitation sent successfully")
+                        return {"message": "Invitation sent successfully"}, 201
                 except Exception as e:
                         print(e)
                         print("Failed to send invitation")
-
+                        return {"error": str(e)}, 400
         # invite_to_event(2, 3, 2, "Hackathon", current_timestamp, "Milton", "Start coding")
         # cur.execute("SELECT * FROM \"invites\"")
         # cur.execute("SELECT * FROM \"events\"")

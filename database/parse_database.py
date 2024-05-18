@@ -44,9 +44,10 @@
 # if __name__ == '__main__':
 #     app.run(debug=True)
 
-from flask import Flask, jsonify
+import uuid
+from flask import Flask, jsonify, request
 import json
-from database_methods import get_user_info, get_user_friend_invites, get_user_event_invites
+from database_methods import accept_req, add_user, friend_req, get_user_info, get_user_friend_invites, get_user_event_invites, invite_to_event, update_priority
 
 app = Flask(__name__)
 
@@ -68,7 +69,6 @@ def get_user(uID):
     user_info = get_user_info(uID)
     user_friend_invites = get_user_friend_invites(uID)
     user_event_invites_list = get_user_event_invites(uID)
-    print("HELLO MOZAFAKA:", user_event_invites_list)
     
     
     # Parse JSON strings back to Python dictionaries
@@ -82,6 +82,98 @@ def get_user(uID):
         'event_invites': user_event_invites_list
     }
     return jsonify(response_data)
+
+@app.route('/add', methods=['POST']) ## NOT SURE IF IT WORKS
+def add_user_to_db():
+    data = request.get_json()
+    if data is None:
+        return jsonify({"error": "Invalid input"}), 400
+
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({"error": "Username and password are required"}), 400
+
+    # Generate a unique identifier for the user
+    uID = uuid.uuid4()
+
+    # Call the helper function to add the user to the database
+    response, status = add_user(str(uID), username, password)
+    return jsonify(response), status
+
+@app.route('/friend_request', methods=['POST'])
+def send_friend_request():
+    data = request.get_json()
+    if data is None:
+        return jsonify({"error": "Invalid input"}), 400
+
+    uID = data.get('uID')
+    username = data.get('username')
+    friend = data.get('friend')
+    priority = data.get('priority')
+
+    if not username or not friend or priority is None:
+        return jsonify({"error": "Username, friend, and priority are required"}), 400
+
+    # Call the friend_req function
+    response, status = friend_req(str(uID), username, friend, priority)
+    return jsonify(response), status
+
+@app.route('/accept_friend_request', methods=['POST'])
+def accept_friend_request():
+    data = request.get_json()
+    if data is None:
+        return jsonify({"error": "Invalid input"}), 400
+
+    uID = data.get('uID')
+    username = data.get('username')
+    friend = data.get('friend')
+
+    if not uID or not username or not friend:
+        return jsonify({"error": "uID, username, and friend are required"}), 400
+
+    # Call the helper function to accept the friend request
+    response, status = accept_req(uID, username, friend)
+    return jsonify(response), status
+
+@app.route('/update_priority', methods=['POST'])
+def update_friend_priority():
+    data = request.get_json()
+    if data is None:
+        return jsonify({"error": "Invalid input"}), 400
+
+    uID = data.get('uID')
+    friend = data.get('friend')
+    priority = data.get('priority')
+
+    if not uID or not friend or priority is None:
+        return jsonify({"error": "uID, friend, and priority are required"}), 400
+
+    # Call the helper function to update priority
+    response, status = update_priority(uID, friend, priority)
+    return jsonify(response), status
+
+@app.route('/invite_to_event', methods=['POST'])
+def invite_to_event_db():
+    data = request.get_json()
+    if data is None:
+        return jsonify({"error": "Invalid input"}), 400
+
+    eID = data.get('eID')
+    uID = data.get('uID')
+    friendID = data.get('friendID')
+    eventName = data.get('eventName')
+    eventTime = data.get('eventTime')
+    eventLocation = data.get('eventLocation')
+    eventDescription = data.get('eventDescription')
+
+    if not eID or not uID or not friendID or not eventName or not eventTime or not eventLocation or not eventDescription:
+        return jsonify({"error": "Incomplete event details"}), 400
+
+    # Call the helper function to invite friends to the event
+    response, status = invite_to_event(eID, uID, friendID, eventName, eventTime, eventLocation, eventDescription)
+    return jsonify(response), status
 
 
 # Handle favicon request
