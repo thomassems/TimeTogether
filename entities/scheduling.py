@@ -1,3 +1,6 @@
+from friend import Priority, Friend
+from event import Event
+
 def _find_longest_consecutive_timeslot(available_times):
     # Find the longest consecutive timeslot in the available times
     longest_timeslot_len = 0
@@ -19,7 +22,7 @@ def _find_longest_consecutive_timeslot(available_times):
 def _find_master_available_times(user_schedule, friend_schedule):
     master_available_times = {day: set([i for i in range(24)]) for day in user_schedule}
     for day in user_schedule:
-        master_available_times[day] = set(friend_available_times[day]).intersection(set(user_available_times[day]))
+        master_available_times[day] = set(friend_schedule[day]).intersection(set(user_schedule[day]))
         master_available_times[day] = list(master_available_times[day])
         master_available_times[day].sort()
     
@@ -53,7 +56,13 @@ def recommend_event(user_requesting, friend_requested):
     # Then based on prio and availability we change this to reflect only stasrt times they are available, 
 
     user_schedule = user_requesting.get_calendar()
-    friend_schedule = friend_requested.get_user().get_calendar()
+    # find friend in user
+    friend_req = None
+    for f in user_requesting.get_friends():
+        if f.get_user() == friend_requested:
+            friend_req = f
+            break
+    friend_schedule = friend_req.get_user().get_calendar()
 
     # first check without needing priority (only day time so 9am to 10pm)
 
@@ -70,8 +79,8 @@ def recommend_event(user_requesting, friend_requested):
         user_friends = user_requesting.get_friends()
         friend_prio = friend_requested.get_priority()
         user_prio = -1
-        for friend in friend_requested.get_user().get_friends():
-            if friend.get_userid() == user_requesting.get_userid():
+        for friend in friend_requested.get_userid().get_friends():
+            if friend.get_user() == user_requesting.get_userid():
                 user_prio = friend.get_priority()
                 break
                 
