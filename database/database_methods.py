@@ -28,9 +28,6 @@ try:
                         print("Failed to add user")
                         return {"error": str(e)}, 400
 
-        # cur.execute("SELECT * FROM \"User\"")
-        # result = cur.fetchall()
-        # print(result)
         def friend_req(uID, username, friend, priority):
                 try:    
                         cur.execute("""INSERT INTO "User" ("uID", "username", "friend", "lastTalkedTo", "priority") VALUES (%s, %s, %s, NULL, %s)""", (uID, username, friend, priority))
@@ -42,10 +39,6 @@ try:
                         print("Failed to add friend")
                         return {"error": str(e)}, 400
 
-        # friend_req(3, "Mike", 2, 3)
-        # cur.execute("SELECT * FROM \"User\"")
-        # result = cur.fetchall()
-        # print(result)
         def accept_req(uID, username, friend): # Very similar to one above it, just set the priority value to 1
                 try:    
                         cur.execute("""INSERT INTO "User" ("uID", "username", "friend", "lastTalkedTo", "priority") VALUES (%s, %s, %s, NULL, 3)""", (uID, username, friend))
@@ -57,7 +50,7 @@ try:
                         print("Failed to add friend")
                         return {"error": str(e)}, 400
 
-        def update_priority(uID, friend, priority): # check that they are friends before-hand
+        def update_priority(uID, friend, priority): 
                 try:
                         cur.execute("""UPDATE "User" SET "priority" = %s WHERE "uID" = %s AND "friend" = %s""", (priority, uID, friend))
                         print("Priority updated successfully")
@@ -81,11 +74,6 @@ try:
                         print(e)
                         print("Failed to send invitation")
                         return {"error": str(e)}, 400
-        # invite_to_event(2, 3, 2, "Hackathon", current_timestamp, "Milton", "Start coding")
-        # cur.execute("SELECT * FROM \"invites\"")
-        # cur.execute("SELECT * FROM \"events\"")
-        # result = cur.fetchall()
-        # print(result)
 
         def update_event(eID, eventName, eventTime, eventLocation, eventDescription):
                 try:
@@ -98,11 +86,6 @@ try:
                         print(e)
                         print("Failed to send invitation")
                         return {"error": str(e)}, 400
-
-        # update_event(1, "Nick's soccer tourny", current_timestamp, "Etobicoke", "Watch Nick get hat trick")
-        # cur.execute("SELECT * FROM \"events\"")
-        # result = cur.fetchall()
-        # print(result)
         
         def add_participant_to_event(eID, uID):
                 try:
@@ -112,11 +95,6 @@ try:
                 except Exception as e:
                         print(e)
                         print("Failed to add participant")
-
-        # add_participant_to_event(1, 1)
-        # cur.execute("SELECT * FROM \"event_participants\"")
-        # result = cur.fetchall()
-        # print(result)
 
         def accept_invite(eID, friendID): 
                 try:                        
@@ -134,12 +112,6 @@ try:
                         print(e)
                         print("Failed to accept invitation")
                         return {"error": str(e)}, 400
-
-        # accept_invite(2, 2)
-        # cur.execute("SELECT * FROM \"invites\"")
-        # cur.execute("SELECT * FROM \"event_participants\"")
-        # result = cur.fetchall()
-        # print(result)
 
         def get_user_events(uID):
                 try:
@@ -163,8 +135,6 @@ try:
                 except Exception as e:
                         print(e)
                         print("Failed to retrieve events")
-       
-        # print(get_user_events(1))
 
         def get_user_friends(uID):
                 try:
@@ -184,39 +154,7 @@ try:
                 except Exception as e:
                         print(e)
                         print("Failed to retrieve friends")
-        
-        # print(get_user_friends(3))
-        # def get_user_info(uID):
-        #         try:
-        #                 cur.execute("""SELECT u1."uID", u1."username", u1."friend", u1."password" FROM "User" WHERE u1."uID" = %s """, 
-        #                             (uID,))
-        #                 conn.commit()
-        #                 lst = []
-        #                 for info in cur:
-        #                         lst.append(info)
 
-        #                 cur.execute("""SELECT u1."uID", u1."username", u1."friend" FROM "User" u1
-        #                         JOIN "User" u2 ON u1."uID" = u2."friend" AND u1."friend" = u2."uID"
-        #                         WHERE u1."uID" = %s""", (uID, ))
-        #                 conn.commit()
-        #                 results = cur.fetchall()
-
-        #                 # Check if there are any results
-        #                 if results:
-        #                         # Get the uID and username of the first row
-        #                         first_row = results[0]
-        #                         uID = first_row[0]
-        #                         username = first_row[1]
-                                
-        #                         # Collect all friends' uIDs
-        #                         friends = [row[2] for row in results]
-                                
-        #                         # Append the uID, username, and list of friends to lst
-        #                         lst = [uID, username, friends]
-        #                 return lst
-        #         except Exception as e:
-        #                 print(e)
-        #                 print("Failed to retrieve user info")
         def get_user_info(uID):
                 try:
                         # First query to get user information
@@ -224,20 +162,16 @@ try:
                                 FROM "User" u1
                                 WHERE u1."uID" = %s""", (uID,))
                         user_info = cur.fetchone()  # Fetch only one record
-                        print("THIS IS BITCH")
                         if user_info is None:
                                 raise Exception("User not found")
-                        print("THIS TOO IS BITCH")
                         # Extract user information
                         uID, username, friend, password = user_info
-                        print("Solemann said fuck")
                         # Second query to get mutual friends
                         cur.execute("""SELECT u1."uID", u1."username", u1."friend" 
                                 FROM "User" u1
                                 JOIN "User" u2 ON u1."uID" = u2."friend" AND u1."friend" = u2."uID"
                                 WHERE u1."uID" = %s""", (uID,))
                         results = cur.fetchall()
-                        print("I GUESS THIS IS MOTHAFUCK")
                         # Collect friends' uIDs
                         friends = [row[2] for row in results]
 
@@ -246,7 +180,6 @@ try:
 
                         # Convert the list to a JSON string
                         json_result = json.dumps(lst)
-                        print("HERE IS THE BITCH PLS:", json_result)
                         return json_result
 
                 except Exception as e:
@@ -288,13 +221,7 @@ try:
                         print(e)
                         print("Failed at getting event invites")
 
-
-        # invite_to_event(7, 2, 3, "Hackathon", current_timestamp, "New York", "Eat")
-        # print(get_user_event_invites(3))
-        # result = cur.fetchall()
-        # print(result)
-
-        def get_user_friend_invites(friendID): # not sure if this is correct
+        def get_user_friend_invites(friendID): 
                 try:
                         cur.execute(
                         """
@@ -322,30 +249,17 @@ try:
                 except Exception as e:
                         print(e)
                         print("Failed to retrieve invites")
-        
-        # add_user(5, "Mike", "password")
-        # add_user(6, "Tom", "passy")
-        # friend_req(5, "Michael", 6, 2)
-        # print(get_user_friend_invites(5))
-        # print(get_user_friend_invites(6))
-
 
         def update_last_talked_to(uID, friendID):
                 try:
                         cur.execute("""UPDATE "User" SET "lastTalkedTo" = %s WHERE "uID" = %s AND "friend" = %s
                         """, (current_timestamp, uID, friendID))
 
-                        # Second update query
                         cur.execute("""UPDATE "User" SET "lastTalkedTo" = %s
                         WHERE "uID" = %s AND "friend" = %s""", (current_timestamp, friendID, uID))
                 except Exception as e:
                         print(e)
                         print("Failed to update last talked to")
-        
-        # update_last_talked_to(3, 2)
-        # cur.execute("SELECT * FROM \"User\"")
-        # result = cur.fetchall()
-        # print(result)
 
         def clear_all():
                 cur.execute("""DELETE FROM "event_participants" """)
@@ -353,12 +267,7 @@ try:
                 cur.execute("""DELETE FROM "events" """)
                 cur.execute("""DELETE FROM "invige" """)
 
-        # DON'T UNCOMMENT
-        # clear_all()
-
-        # result = cur.fetchall()
-        # print(result)
-
+        # UNCOMMENT TO DELETE DATABASE ENTRIES!!
         # def get_all_users():
         #         try:
         #                 cur.execute("""SELECT * FROM "User" """)
