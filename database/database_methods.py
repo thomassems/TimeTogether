@@ -1,4 +1,5 @@
 import psycopg2
+import json
 from datetime import datetime
 
 hostname = 'localhost'
@@ -25,11 +26,9 @@ try:
                         print(e)
                         print("Failed to add user")
 
-        cur.execute("SELECT * FROM \"User\"")
-        result = cur.fetchall()
-        print(result)
-
-        conn.commit()
+        # cur.execute("SELECT * FROM \"User\"")
+        # result = cur.fetchall()
+        # print(result)
         def friend_req(uID, username, friend, priority):
                 try:    
                         cur.execute("""INSERT INTO "User" ("uID", "username", "friend", "lastTalkedTo", "priority") VALUES (%s, %s, %s, NULL, %s)""", (uID, username, friend, priority))
@@ -175,33 +174,73 @@ try:
                         print("Failed to retrieve friends")
         
         # print(get_user_friends(3))
+        # def get_user_info(uID):
+        #         try:
+        #                 cur.execute("""SELECT u1."uID", u1."username", u1."friend", u1."password" FROM "User" WHERE u1."uID" = %s """, 
+        #                             (uID,))
+        #                 conn.commit()
+        #                 lst = []
+        #                 for info in cur:
+        #                         lst.append(info)
+
+        #                 cur.execute("""SELECT u1."uID", u1."username", u1."friend" FROM "User" u1
+        #                         JOIN "User" u2 ON u1."uID" = u2."friend" AND u1."friend" = u2."uID"
+        #                         WHERE u1."uID" = %s""", (uID, ))
+        #                 conn.commit()
+        #                 results = cur.fetchall()
+
+        #                 # Check if there are any results
+        #                 if results:
+        #                         # Get the uID and username of the first row
+        #                         first_row = results[0]
+        #                         uID = first_row[0]
+        #                         username = first_row[1]
+                                
+        #                         # Collect all friends' uIDs
+        #                         friends = [row[2] for row in results]
+                                
+        #                         # Append the uID, username, and list of friends to lst
+        #                         lst = [uID, username, friends]
+        #                 return lst
+        #         except Exception as e:
+        #                 print(e)
+        #                 print("Failed to retrieve user info")
         def get_user_info(uID):
                 try:
-                        cur.execute("""SELECT u1."uID", u1."username", u1."friend" FROM "User" u1
+                        # First query to get user information
+                        cur.execute("""SELECT u1."uID", u1."username", u1."friend", u1."password" 
+                                FROM "User" u1
+                                WHERE u1."uID" = %s""", (uID,))
+                        user_info = cur.fetchone()  # Fetch only one record
+                        print("THIS IS BITCH")
+                        if user_info is None:
+                                raise Exception("User not found")
+                        print("THIS TOO IS BITCH")
+                        # Extract user information
+                        uID, username, friend, password = user_info
+                        print("Solemann said fuck")
+                        # Second query to get mutual friends
+                        cur.execute("""SELECT u1."uID", u1."username", u1."friend" 
+                                FROM "User" u1
                                 JOIN "User" u2 ON u1."uID" = u2."friend" AND u1."friend" = u2."uID"
-                                WHERE u1."uID" = %s""", (uID, ))
-                        conn.commit()
+                                WHERE u1."uID" = %s""", (uID,))
                         results = cur.fetchall()
+                        print("I GUESS THIS IS MOTHAFUCK")
+                        # Collect friends' uIDs
+                        friends = [row[2] for row in results]
 
-                        # Initialize the list
-                        lst = []
+                        # Construct the list
+                        lst = [uID, username, friends]
 
-                        # Check if there are any results
-                        if results:
-                                # Get the uID and username of the first row
-                                first_row = results[0]
-                                uID = first_row[0]
-                                username = first_row[1]
-                                
-                                # Collect all friends' uIDs
-                                friends = [row[2] for row in results]
-                                
-                                # Append the uID, username, and list of friends to lst
-                                lst = [uID, username, friends]
-                        return lst
+                        # Convert the list to a JSON string
+                        json_result = json.dumps(lst)
+                        print("HERE IS THE BITCH PLS:", json_result)
+                        return json_result
+
                 except Exception as e:
                         print(e)
                         print("Failed to retrieve user info")
+                        return None
 
         # print(get_user_info(2))
         # cur.execute("SELECT * FROM \"User\"")
@@ -313,11 +352,19 @@ try:
         #                 cur.execute("""SELECT * FROM "User" """)
         #         except Exception as e:
         #                 print(e)
-
-        cur.close()
-        conn.close()
+        def close():
+                if cur is not None:
+                        cur.close()
+                if conn is not None:
+                        conn.close()
 
 except Exception as e:
         print(e)
         print('Unable to connect to the database')
         exit()
+
+# finally:
+#     if 'cur' in locals() and cur is not None and not cur.closed:
+#         cur.close()
+#     if 'conn' in locals() and conn is not None and not conn.closed:
+#         conn.close()
