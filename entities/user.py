@@ -27,8 +27,10 @@ class User:
         friend.add_friend_request(self)
 
     def accept_friend_request(self, friend):
-        self.friends.append(friend)
-        friend.friends.append(self) # potentially problematic
+        friend_obj = Friend(friend, Priority.LOW)
+        self_obj = Friend(self, Priority.LOW)
+        self.friends.append(friend_obj)
+        friend.friends.append(self_obj) # potentially problematic
         self.friends_requests.remove(friend)
 
     def reject_friend_request(self, friend):
