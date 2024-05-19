@@ -25,7 +25,7 @@ TimeTogether helps you:
 **Enhance Social Well-being:** Strengthen your emotional health by making more time for meaningful interactions. 🌸💬
 
 ## How to Get Started
-**Sign Up:** Create an account and log in with your Google Calendar.
+**Sign Up:** Create an account, log in and import your calendar.
 
 **Add Friends:** Start sending friend requests to people in your contacts.
 
