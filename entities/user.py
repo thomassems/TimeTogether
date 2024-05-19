@@ -1,9 +1,12 @@
+from __future__ import annotations
 from datetime import datetime
 from calendar_parser import parse_ics
 from friend import Priority
 from event import Event
 from friend import Friend
 from scheduling import manual_schedule_event, recommend_event
+#from nlp import get_scores
+
 
 def int_to_weekday_string(day_int):
     weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -21,6 +24,19 @@ class User:
         self.friends_requests = []
         self.event_requests = []
         self.events_attended = []
+        self.unimportant = self.get_unimportant_events()
+
+
+    def get_unimportant_events(self):
+        unimportant = []
+        for day in self.calendar:
+            for event in day:
+                description = event
+                score = get_scores([description])[0] # NLP model
+                if score < 0.25:
+                   unimportant.append(event)
+        return unimportant
+
 
     def change_friend_priority(self, friend, priority):
         # assume friend is a User object

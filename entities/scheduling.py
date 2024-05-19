@@ -65,6 +65,12 @@ def recommend_event(user_requesting, friend_requested):
             break
     friend_schedule = friend_req.get_user().get_calendar()
 
+    unimportant_events = user_requesting.get_unimportant_events()
+
+    # Remove unimportant events from user_schedule
+    for day, events in user_schedule.items():
+        user_schedule[day] = [event for event in events if event not in unimportant_events]
+
     # first check without needing priority (only day time so 9am to 10pm)
 
     user_available_times = {day: [i for i in range(9, 22)] for day in user_schedule}
