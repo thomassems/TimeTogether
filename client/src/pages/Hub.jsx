@@ -14,7 +14,7 @@ function Hub({data}) {
         <Avatar.Root className="AvatarRoot">
                   <Avatar.Image
                     className="AvatarImage"
-                    src='https://sites.uci.edu/sbass/files/2022/05/AF7A55DF-ABEE-4850-B93D-846C75426F32-400x400.png'
+                    src='https://media.licdn.com/dms/image/C4E0BAQGWmRTUjxIO3Q/company-logo_200_200/0/1630653348152/hawkhacks_logo?e=2147483647&v=beta&t=rJ-FLkwSvrunUTkj4g0_-WuS32_79JZoY7iUO_qxFNs'
                     alt="Colm Tuite"
                   />
                   <Avatar.Fallback className="AvatarFallback" delayMs={600}>

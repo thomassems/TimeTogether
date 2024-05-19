@@ -76,7 +76,7 @@ function Form() {
         setTimeout(() => {
             setLoading(false);
             setCompletedForm(true);
-          }, 1); // Set a delay of 2 seconds
+          }, 10000); // Set a delay of 2 seconds
     }
   return (
     <>

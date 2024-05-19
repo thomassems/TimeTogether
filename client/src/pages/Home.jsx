@@ -26,13 +26,8 @@ const events = [
 
 ]
 
-const suggestions = [
-    {
-        name: 'Bobby',
 
-    }
 
-]
 
 function Home() {
   return (

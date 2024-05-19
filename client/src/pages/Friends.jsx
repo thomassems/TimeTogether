@@ -2,10 +2,38 @@ import styled from "styled-components";
 import ContactCard from "../components/ContactCard";
 
 const contacts = [{
-    name:'Jonathan Tim',
+    name:'Evan Yan',
     priority: 1,
     lastHangout: '204920',
     isAvailable: true,
+    event: {
+        date:'Thursday, 8:00pm-9:00pm, May 20th'
+    },
+    
+},{
+    name:'Evan Yan',
+    priority: 2,
+    lastHangout: '204920',
+    isAvailable: true,
+    event: {
+        date:'Thursday, 8:00pm-9:00pm, May 20th'
+    },
+    
+},{
+    name:'Evan Yan',
+    priority: 3,
+    lastHangout: '204920',
+    isAvailable: true,
+    event: {
+        date:'Thursday, 8:00pm-9:00pm, May 20th'
+    },
+    
+},
+{
+    name:'Average Joe',
+    priority: 3,
+    lastHangout: '204920',
+    isAvailable: false,
     event: {
         date:'Thursday, 8:00pm-9:00pm, May 20th'
     }
@@ -37,5 +65,7 @@ const MyFriends = styled.div`
 `
 
 const ContactList = styled.div`
-
+    display:flex;
+    flex-direction:column;
+    gap:0.8em;
 `

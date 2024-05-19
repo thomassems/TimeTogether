@@ -23,7 +23,7 @@ function ContactCard({ name, priority, lastHangout, isAvailable, event }) {
             <Avatar.Root className="AvatarRoot">
               <Avatar.Image
                 className="AvatarImage"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCH0LFATVLKbgmhuXk-aJ8gZpvfQ8SQQV0lbALOI6izQ&s"
+                src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/a/1/0a1dcd77e33d49eb5b23b682629c7fcc39d4f39f.jpeg"
                 alt="Colm Tuite"
               />
               <Avatar.Fallback className="AvatarFallback" delayMs={600}>
@@ -63,7 +63,29 @@ function ContactCard({ name, priority, lastHangout, isAvailable, event }) {
           </Availability>
         </AvailCard>
       ) : (
-        <DefCard></DefCard>
+        <DefCard>
+          <Profile>
+            <Avatar.Root className="AvatarRoot">
+              <Avatar.Image
+                className="AvatarImage"
+                src="https://cdn-icons-png.flaticon.com/512/4646/4646084.png"
+                alt="Colm Tuite"
+              />
+              <Avatar.Fallback className="AvatarFallback" delayMs={600}>
+                null
+              </Avatar.Fallback>
+            </Avatar.Root>
+            <Text>
+              <Name>{name}</Name>
+              {renderPriorityButton(priority)}
+            </Text>
+          </Profile>
+          <Availability>
+            <AvailText>
+              You both don't share any times at the moment.
+            </AvailText>
+          </Availability>
+        </DefCard>
       )}
     </>
   );
@@ -114,11 +136,12 @@ const AvailCard = styled.span`
 `;
 
 const DefCard = styled.span`
-  display: flex;
-  background-color: #f5f5f5;
-  height: 134px;
-  border-radius: 10px;
-  padding: 1em;
+display: flex;
+flex-direction: column;
+background-color: #f5f5f5;
+height: 140px;
+border-radius: 10px;
+padding: 1em;
 `;
 
 const Profile = styled.div`
