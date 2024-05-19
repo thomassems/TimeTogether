@@ -68,6 +68,7 @@ def get_user(uID):
     user_info = get_user_info(uID)
     user_friend_invites = get_user_friend_invites(uID)
     user_event_invites_list = get_user_event_invites(uID)
+    print("HELLO MOZAFAKA:", user_event_invites_list)
     
     
     # Parse JSON strings back to Python dictionaries
