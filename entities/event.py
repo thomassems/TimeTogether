@@ -16,6 +16,7 @@ class Event:
     
     def participant_accept(self, participant):
         self.num_accepted += 1
+        self.participants.append(participant)
         if self.num_accepted == len(self.participants):
             # everyone has accepted, thus send to everyone's calendar
             participant.add_event_to_calendar(self)
