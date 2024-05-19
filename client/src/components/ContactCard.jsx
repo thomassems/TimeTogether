@@ -23,7 +23,7 @@ function ContactCard({ name, priority, lastHangout, isAvailable, event }) {
             <Avatar.Root className="AvatarRoot">
               <Avatar.Image
                 className="AvatarImage"
-                src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/a/1/0a1dcd77e33d49eb5b23b682629c7fcc39d4f39f.jpeg"
+                src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"
                 alt="Colm Tuite"
               />
               <Avatar.Fallback className="AvatarFallback" delayMs={600}>

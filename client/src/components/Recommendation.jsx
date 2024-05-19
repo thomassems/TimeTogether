@@ -4,11 +4,11 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button } from '@radix-ui/themes';
 
 const initialItems = [
-  { id: '1', name: 'Gordon Ramsay', priority: 1, date: 'Thursday, 8:00pm-9:00pm, May 20th', lastHangout: '2d ago' },
-  { id: '2', name: 'Bobby Flay', priority: 2, date: 'Thursday, 8:00pm-9:00pm, May 20th', lastHangout: '2d ago' },
-  { id: '3', name: 'Jimothy Lau', priority: 3, date: 'Thursday, 8:00pm-9:00pm, May 20th', lastHangout: '2d ago' },
-  { id: '4', name: 'Michael Jordan', priority: 1, date: 'Thursday, 8:00pm-9:00pm, May 20th', lastHangout: '2d ago' },
-  { id: '5', name: 'Lebron James', priority: 2, date: 'Thursday, 8:00pm-9:00pm, May 20th', lastHangout: '2d ago' },
+  { id: '1', name: 'Evan Yan', priority: 1, date: 'Monday, 2:00pm-5:00pm, May 21th', lastHangout: '1d ago' },
+  { id: '2', name: 'Bobby Flay', priority: 2, date: 'Wednesday, 8:00pm-9:00pm, May 23th', lastHangout: '30d ago' },
+  { id: '3', name: 'Timothy Lim', priority: 3, date: 'Thursday, 9:00pm-11:00pm, May 24th', lastHangout: '2d ago' },
+  { id: '4', name: 'Gordon Ramsay', priority: 1, date: 'Friday, 9:00am-11:00am, May 25th', lastHangout: '12d ago' },
+  { id: '5', name: 'Lebron James', priority: 2, date: 'Saturday, 3:00pm-5:00pm, May 26th', lastHangout: '7d ago' },
 ];
 
 const App = () => {

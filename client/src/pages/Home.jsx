@@ -11,16 +11,16 @@ const events = [
         status: true,
     },
     {
-        day: 'Monday',
-        time: '8:00pm-9:00pm',
-        date: 'May 20th',
-        name: 'Jason',
+        day: 'Thursday',
+        time: '3:00pm-7:00pm',
+        date: 'May 25th',
+        name: 'Tom',
         status: false
 },{
-    day: 'Monday',
-    time: '8:00pm-9:00pm',
-    date: 'May 20th',
-    name: 'Jason',
+    day: 'Friday',
+    time: '5:00pm-9:00pm',
+    date: 'May 29th',
+    name: 'Bryan',
     status: false
 },
 
