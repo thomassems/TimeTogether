@@ -17,7 +17,8 @@ export default App
 const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Inter", sans-serif;
-    // width:600px;
+    max-width:600px;
+    margin: auto;
     // margin:auto;
   }
 
