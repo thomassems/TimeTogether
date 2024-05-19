@@ -2,8 +2,8 @@ import icalendar
 import os
 from datetime import datetime
 
-def parse_ics():
-    with open('./entities/calendar.ics', 'rb') as f:
+def parse_ics(path='./entities/calendar.ics'):
+    with open(path, 'rb') as f:
         gcal = icalendar.Calendar.from_ical(f.read())
 
     events = []
@@ -13,5 +13,6 @@ def parse_ics():
             event = {}
             event['dtstart'] = component.get('DTSTART').dt
             event['dtend'] = component.get('DTEND').dt
+            event['description'] = component.get('DESCRIPTION')
             events.append(event)
     return events
