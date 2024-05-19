@@ -38,3 +38,5 @@ TimeTogether helps you:
 ### TimeTogether is more than just an app—it's a tool to help you cherish and nurture the relationships that bring joy and meaning to your life. Don't let the busyness of daily life keep you from your friends. Start using TimeTogether today and make every moment count! 🎊💖
 ## Let’s Make TimeTogether! ⏰👯‍♂️
 Join the community of people who are making their friendships a priority. Download TimeTogether now and start connecting like never before! 🌟
+
+Feel free to take a look at our TAIKAI submission here: [Our Project](https://taikai.network/hackbox/hackathons/hawkhacks/projects/clwd4n1q20d6nyg013oygxtna/idea)
