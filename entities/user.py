@@ -9,6 +9,7 @@ def int_to_weekday_string(day_int):
     weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     return weekdays[day_int]
 
+
 class User:
     #
 
