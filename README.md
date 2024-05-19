@@ -26,11 +26,15 @@ TimeTogether helps you:
 
 ## How to Get Started
 **Sign Up:** Create an account and log in with your Google Calendar.
-**Add Friends:** Start sending friend requests to people in your contacts.
-**Set Priorities:** Choose how much you want to prioritize each friend.
-**Get Recommendations:** Enjoy personalized event suggestions and find the perfect time to hang out.
-**Create and Invite:** Plan your meetups and send invitations effortlessly.
-**TimeTogether** is more than just an app—it's a tool to help you cherish and nurture the relationships that bring joy and meaning to your life. Don't let the busyness of daily life keep you from your friends. Start using TimeTogether today and make every moment count! 🎊💖
 
+**Add Friends:** Start sending friend requests to people in your contacts.
+
+**Set Priorities:** Choose how much you want to prioritize each friend.
+
+**Get Recommendations:** Enjoy personalized event suggestions and find the perfect time to hang out.
+
+**Create and Invite:** Plan your meetups and send invitations effortlessly.
+
+### TimeTogether is more than just an app—it's a tool to help you cherish and nurture the relationships that bring joy and meaning to your life. Don't let the busyness of daily life keep you from your friends. Start using TimeTogether today and make every moment count! 🎊💖
 ## Let’s Make TimeTogether! ⏰👯‍♂️
 Join the community of people who are making their friendships a priority. Download TimeTogether now and start connecting like never before! 🌟
