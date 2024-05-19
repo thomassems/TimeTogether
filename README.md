@@ -1,5 +1,7 @@
 # TimeTogether 📅❤️
 
+![Mobile App](laurier.png)
+
 ## In today's busy world, it's easy to lose touch with the people who matter most. Between work, errands, and personal commitments, finding time to connect with friends can feel impossible. That's where TimeTogether comes in! 🌟 
 ## TimeTogether is your new best friend for maintaining and strengthening your social connections. By integrating seamlessly with your Google Calendar, TimeTogether helps you prioritize your relationships and make the most of your time. Here’s how it works:
 
