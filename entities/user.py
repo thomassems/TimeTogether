@@ -23,7 +23,10 @@ class User:
         self.events_attended = []
 
     def change_friend_priority(self, friend, priority):
-        friend.change_priority(priority)
+        # assume friend is a User object
+        for fr in self.friends:
+            if fr.get_user().get_userid == friend.id:
+                fr.change_priority(priority)
 
     def add_friend_request(self, user):
         user.friends_requests.append(self)
@@ -52,9 +55,9 @@ class User:
         # need to implement
         pass
 
-    def read_calendar_ics(self):
+    def read_calendar_ics(self, path='./entities/calendar.ics'):
         # need to implement
-        events = parse_ics()
+        events = parse_ics(path)
         for event in events:
             dtstart_str = event["dtstart"].strftime('%Y-%m-%d %H:%M:%S')
             dt_start = datetime.strptime(dtstart_str, '%Y-%m-%d %H:%M:%S')

@@ -13,7 +13,7 @@ def _find_longest_consecutive_timeslot(available_times):
                 current_timeslot_start = i
             current_timeslot_len += 1
         else:
-            if current_timeslot_len > longest_timeslot_len:
+            if current_timeslot_len > longest_timeslot_len: # >= ?
                 longest_timeslot_len = current_timeslot_len
                 longest_timeslot_start = current_timeslot_start
             current_timeslot_len = 0
@@ -41,7 +41,7 @@ def _find_master_available_times(user_schedule, friend_schedule):
 def _modify_available_times(available_times, schedule):
     for day in schedule:
         for timeslot in schedule[day]:
-            for i in range(timeslot[0], timeslot[1] + 1):
+            for i in range(timeslot[0], timeslot[1]):
                 if i in available_times[day]:
                     available_times[day].remove(i)
 
