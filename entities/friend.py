@@ -7,9 +7,6 @@ class Priority(Enum):
     LOW = 3
 
 class Friend:
-    user 
-    priority
-    last_talked_to
 
     def __init__(self, user, priority):
         self.user = user

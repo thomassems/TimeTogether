@@ -1,9 +1,4 @@
 class Event:
-    participants
-    day
-    timeslot
-    participants_rejected
-    num_accepted
 
     def __init__(self, day, timeslot, participants):
         self.participants = participants

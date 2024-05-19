@@ -1,13 +1,12 @@
 from datetime import datetime
+from calendar_parser import parse_ics
+from friend import Priority
+from event import Event
+from friend import Friend
+from scheduling import manual_schedule_event, recommend_event
 
 class User:
-    id
-    name
-    friends
-    calendar
-    friends_requests
-    event_requests
-    password
+    #
 
     def __init__(self, id, name):
         self.id = id
@@ -16,12 +15,13 @@ class User:
         self.calendar = {"Saturday":[], "Sunday":[], "Monday":[], "Tuesday":[], "Wednesday":[], "Thursday":[], "Friday":[]}
         self.friends_requests = []
         self.event_requests = []
+        self.events_attended = []
 
     def change_friend_priority(self, friend, priority):
         friend.change_priority(priority)
 
     def add_friend_request(self, user):
-        self.friends_requests.append(user)
+        user.friends_requests.append(self)
 
     def send_friend_request(self, friend):
         friend.add_friend_request(self)
@@ -30,7 +30,6 @@ class User:
         self.friends.append(friend)
         friend.friends.append(self) # potentially problematic
         self.friends_requests.remove(friend)
-        friend.friends_requests.remove(self)
 
     def reject_friend_request(self, friend):
         self.friends_requests.remove(friend)
@@ -40,6 +39,7 @@ class User:
 
     def add_event_to_calendar(self, event):
         self.calendar[event.day].append(event)
+        self.events_attended.append(event)
     
     def modify_calendar_ics(self, event):
         # need to implement
