@@ -1,9 +1,10 @@
 import icalendar
+import os
 from datetime import datetime
 
 def parse_ics():
-    with open('calendar.ics', 'rb') as f:
-        gcal = icalendar.Calendar.from_icalendar(f.read())
+    with open('./entities/calendar.ics', 'rb') as f:
+        gcal = icalendar.Calendar.from_ical(f.read())
 
     events = []
 

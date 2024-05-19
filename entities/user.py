@@ -5,6 +5,10 @@ from event import Event
 from friend import Friend
 from scheduling import manual_schedule_event, recommend_event
 
+def int_to_weekday_string(day_int):
+    weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    return weekdays[day_int]
+
 class User:
     #
 
@@ -31,7 +35,7 @@ class User:
         self_obj = Friend(self, Priority.LOW)
         self.friends.append(friend_obj)
         friend.friends.append(self_obj) # potentially problematic
-        self.friends_requests.remove(friend)
+        self.friends_requests.remove(friend)    
 
     def reject_friend_request(self, friend):
         self.friends_requests.remove(friend)
@@ -51,9 +55,11 @@ class User:
         # need to implement
         events = parse_ics()
         for event in events:
-            dt_start = datetime.striptime(event['dtstart'], '%Y%m%dT%H%M%SZ')
-            dt_end = datetime.striptime(event['dtend'], '%Y%m%dT%H%M%SZ')
-            day = dt_start.weekday().strftime('%A')
+            dtstart_str = event["dtstart"].strftime('%Y-%m-%d %H:%M:%S')
+            dt_start = datetime.strptime(dtstart_str, '%Y-%m-%d %H:%M:%S')
+            dtend_str = event["dtend"].strftime('%Y-%m-%d %H:%M:%S')
+            dt_end = datetime.strptime(dtend_str, '%Y-%m-%d %H:%M:%S')
+            day = int_to_weekday_string(dt_start.weekday())
             self.calendar[day].append((dt_start.hour, dt_end.hour))
         # now determine overlaps and combine
         for day in self.calendar:

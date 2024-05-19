@@ -42,7 +42,8 @@ def _modify_available_times(available_times, schedule):
     for day in schedule:
         for timeslot in schedule[day]:
             for i in range(timeslot[0], timeslot[1] + 1):
-                available_times[day].remove(i)
+                if i in available_times[day]:
+                    available_times[day].remove(i)
 
 def recommend_event(user_requesting, friend_requested):
     # Find a time that works for all participants and return Event object or return if not possible
